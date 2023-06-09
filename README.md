@@ -4,6 +4,8 @@ This is a Discord bot written in Python that utilizes the discord and poe librar
 
 ![image](https://github.com/WhiteHodok/GigaDGPT4B/assets/39564937/fcb59c1b-b86a-4cc2-bbcd-f259b1d1178e)
 
+![dream_TradingCard (1)](https://github.com/WhiteHodok/GigaDGPT4B/assets/39564937/052a57f1-c374-4762-ae27-415b8059fe24)
+
 
 ## Dependencies
 
