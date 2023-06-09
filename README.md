@@ -83,4 +83,84 @@ async def help(ctx):
     await ctx.send(embed=embed)
 ```
 
+7. Implement the say command:
 
+```sh
+@bot.command(name='create', description='Prompt for LLM (gpt-4, claude etc...)')
+async def say(ctx, prompt: str, model: str = 'gpt-4'):
+    try:
+        print(ctx.author.name, prompt, model)
+
+        base = f'*model*: `{model}`\n'
+        system = 'system: your response will be rendered in a discord message, include language hints when returning code like: ```py ...```, and use * or ** or > to create highlights ||\n prompt: '
+
+        token = random.choice(open('tokens.txt', 'r').read().splitlines())
+        client = poe.Client(token.split(':')[0])
+
+        await ctx.send(base)
+        base += '\n'
+
+        completion = client.send_message(models[model],
+                                         system + prompt, with_chat_break=True)
+
+        for token in completion:
+            base += token['text_new']
+
+            base = base.replace('Discord Message:', '')
+            await ctx.send(base)
+
+    except Exception as e:
+        await ctx.send(f'an error occurred: {e}')
+
+```
+
+8. Implement the create_slash command for slash commands:
+
+```sh
+@bot.slash_command(name="create", description="Create a query to the ChatGPT model")
+async def create_slash(ctx,
+                       prompt: Option(str, description="Prompt for the model"),
+                       model: Option(str, "Choose a model", choices=[
+                           OptionChoice(name='gpt-4', value='gpt-4'),
+                           OptionChoice(name='gpt-3.5-turbo', value='gpt-3.5-turbo'),
+                           OptionChoice(name='claude-v1', value='claude-v1'),
+                           OptionChoice(name='claude-instant', value='claude-instant'),
+                           OptionChoice(name='claude-instant-100k', value='claude-instant-100k'),
+                           OptionChoice(name='sage', value='sage'),
+                       ])):
+    try:
+        print(ctx.author.name, prompt, model)
+
+        base = f'*model*: `{model}`\n'
+        system = 'system: your response will be rendered in a discord message, include language hints when returning code like: ```py ...```, and use * or ** or > to create highlights ||\n prompt: '
+
+        token = random.choice(open('tokens.txt', 'r').read().splitlines())
+        client = poe.Client(token.split(':')[0])
+
+        completion = client.send_message(models[model],
+                                         system + prompt, with_chat_break=True)
+
+        # Combine all response parts into a single string
+        response = base
+        for token in completion:
+            response += token['text_new']
+
+        # Replace "Discord Message:" with an empty string
+        response = response.replace('Discord Message:', '')
+
+        # Send the assembled response as a single message
+        await ctx.send(response)
+
+    except Exception as e:
+        await ctx.send(f'an error occurred: {e}')
+
+```
+
+9. Run the BOT:
+
+```sh
+bot.run(token)
+```
+
+
+Make sure to provide the necessary prerequisites and follow the installation steps before running the bot. You can customize the command prefix, available models, and modify the code as needed for your specific use case.
