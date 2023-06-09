@@ -1,0 +1,3 @@
+discord
+poe-api
+py-cord
