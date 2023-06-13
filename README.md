@@ -1,5 +1,7 @@
 # GigaDGPT4B
 
+ATTENTION : if you have error (an error occured: Invalid token or no bots are available.) , give new token in (https://discord.gg/RHNeeK8k) and input to tokens.txt , if this dont work - i didnt know how this fix , you can try create a vevnv for python and start a bot from venv. Discussion for my problem (https://github.com/xtekky/gpt4free-discord/issues/4)
+
 This is a Discord bot written in Python that utilizes the discord and poe libraries to interact with users and generate responses using language models. The bot has several commands and features that allow users to test the bot's responsiveness and create prompts for different models.
 
 ![image](https://github.com/WhiteHodok/GigaDGPT4B/assets/39564937/fcb59c1b-b86a-4cc2-bbcd-f259b1d1178e)
